@@ -1,0 +1,17 @@
+{
+  "name": "quendingold",
+  "version": "0.0.0",
+  "description": "Adds search and filtering capabilities to simple static webpages",
+  "main": "dist/index.js",
+  "repository": "git@github.com:benchristel/quendingold.git",
+  "author": "Ben Christel <ben.christel@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@benchristel/taste": "^0.5.0",
+    "glob": "^10.4.1"
+  },
+  "scripts": {
+    "test": "./test.js"
+  }
+}
