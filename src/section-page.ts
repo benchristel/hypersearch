@@ -1,4 +1,7 @@
-export function sectionPageByHeading(headingLevel: number, firstNode: Node | null): void {
+import {isHeading, headingLevel, isHeadingAtLevelOrAbove} from "./lib/dom";
+
+// TODO: remove unused first parameter
+export function sectionPageByHeading(_: number, firstNode: Node | null): void {
   const parent = firstNode?.parentNode
   let e = firstNode
   let group: Node[] = []
@@ -12,23 +15,19 @@ export function sectionPageByHeading(headingLevel: number, firstNode: Node | nul
       section.appendChild(el)
     }
     
-    if (headingLevel < 6) {
-      sectionPageByHeading(headingLevel + 1, group[0])
+    if (group.slice(1).some(isHeading)) {
+      sectionPageByHeading(0, group[1])
     }
     
     group = []
   }
 
-  function isHeading(el: Node | null) {
-    return el instanceof Element && el.tagName === `H${headingLevel}`
-  }
-  
   while (e != null) {
     const next = e.nextSibling
     if (isHeading(e) || !isEmpty(group)) {
       group.push(e)
     }
-    if (next == null || isHeading(next)) {
+    if (next == null || isHeadingAtLevelOrAbove(headingLevel(group[0]), next)) {
       finishGroup()
     }
     e = next
@@ -38,3 +37,4 @@ export function sectionPageByHeading(headingLevel: number, firstNode: Node | nul
 function isEmpty(a: Array<unknown>): boolean {
   return a.length === 0
 }
+
