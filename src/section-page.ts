@@ -1,7 +1,6 @@
 import {isHeading, headingLevel, isHeadingAtLevelOrAbove} from "./lib/dom";
 
-// TODO: remove unused first parameter
-export function sectionPageByHeading(_: number, firstNode: Node | null): void {
+export function sectionPageByHeading(firstNode: Node | null): void {
   const parent = firstNode?.parentNode
   let e = firstNode
   let group: Node[] = []
@@ -16,7 +15,7 @@ export function sectionPageByHeading(_: number, firstNode: Node | null): void {
     }
     
     if (group.slice(1).some(isHeading)) {
-      sectionPageByHeading(0, group[1])
+      sectionPageByHeading(group[1])
     }
     
     group = []
