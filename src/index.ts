@@ -1,10 +1,10 @@
 import {applySearch, homElements} from "./hom";
-import {BagOfWordsSearch} from "./search/bag-of-words-search";
+import {BagOfPrefixesSearch} from "./search/bag-of-prefixes-search";
 
 export function init(search: HTMLInputElement, firstHeading: Node | null = null) {
   const hom = homElements(document.body)
   search.addEventListener("input", () => {
-    const bagOfWords = new BagOfWordsSearch(search.value)
+    const bagOfWords = new BagOfPrefixesSearch(search.value)
     applySearch(bagOfWords, hom)
   })
 }

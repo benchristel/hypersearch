@@ -115,7 +115,7 @@ export function homElements(dom: Element): HomElement[] {
     else {
       // el is not a heading
       for (const heading of headings) if (heading != null) {
-        if (el.isListItem()) heading.addDescendent(el)
+        heading.addDescendent(el)
         el.addAncestorHeading(heading)
       }
     }
