@@ -102,12 +102,17 @@ export function homElements(dom: Element): HomElement[] {
   for (const el of homElements) {
     const level = el.headingLevel()
     if (level != null) {
+      // update the headings tuple
       headings[level] = el
       for (let i = level + 1; i < levels; i++) headings[i] = null;
-      // TODO: headings should also be descendents of earlier higher-prominence headings,
-      // so they are shown if those headings match the search
+
+      for (let i = level - 1; i >= 0; i--) {
+        const ancestor = headings[i]
+        if (ancestor != null) el.addAncestorHeading(ancestor)
+      }
     }
     else {
+      // el is not a heading
       for (const heading of headings) if (heading != null) {
         if (el.isListItem()) heading.addDescendentListItem(el)
         el.addAncestorHeading(heading)
