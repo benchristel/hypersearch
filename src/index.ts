@@ -1,6 +1,8 @@
 import { addContentAttributes } from "./add-content-attributes";
 import { sectionPageByHeading } from "./section-page";
 
+export {homElements} from "./hom"
+
 export function init(search: HTMLInputElement, firstHeading: Node | null = null) {
   sectionPageByHeading(firstHeading)
   addContentAttributes(document.body)
@@ -10,7 +12,7 @@ export function init(search: HTMLInputElement, firstHeading: Node | null = null)
     const q = search.value
     const css = q
       ? `
-        li[data-quendingold-content]:not([data-quendingold-content*="${q}" i]) {
+        li[data-quendingold-content]:not([data-quendingold-content*="${q}" i]):not(:is(h1, h2, h3, h4, h5, h6)[data-quendingold-content*="${q}" i] ~ * *) {
           display: none;
         }
         `
