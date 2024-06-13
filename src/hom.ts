@@ -4,13 +4,11 @@
 // - the siblings of headings that are not lists (ol, ul)
 // - the li children of ol and ul elements that are siblings of headings.
 
-interface Search {
-  matches(s: string): boolean;
-}
+import {Search} from "./search/interface";
 
 export class HomElement {
   private ancestorHeadings: HomElement[] = [];
-  private descendentListItems: HomElement[] = [];
+  private descendents: HomElement[] = [];
   private _innerText: null | string = null;
   private _lastSearch: null | Search = null;
   private _lastSearchMatched: boolean = false;
@@ -29,17 +27,17 @@ export class HomElement {
     this.ancestorHeadings.push(heading)
   }
 
-  addDescendentListItem(item: HomElement): void {
-    this.descendentListItems.push(item)
+  addDescendent(item: HomElement): void {
+    this.descendents.push(item)
   }
 
   updateVisibility(search: Search): void {
     const shouldBeVisible = false
-      || this.matches(search) && this.isListItem()
+      || this.matches(search)
       || this.ancestorHeadings.some(h => h.matches(search))
-      || this.descendentListItems.some(h => h.matches(search));
+      || this.descendents.some(h => h.matches(search));
     
-    this.domElement.style.display = shouldBeVisible ? "initial" : "none"
+    this.domElement.style.display = shouldBeVisible ? "" : "none"
   }
 
   matches(search: Search): boolean {
@@ -108,13 +106,16 @@ export function homElements(dom: Element): HomElement[] {
 
       for (let i = level - 1; i >= 0; i--) {
         const ancestor = headings[i]
-        if (ancestor != null) el.addAncestorHeading(ancestor)
+        if (ancestor != null) {
+          ancestor.addDescendent(el)
+          el.addAncestorHeading(ancestor)
+        }
       }
     }
     else {
       // el is not a heading
       for (const heading of headings) if (heading != null) {
-        if (el.isListItem()) heading.addDescendentListItem(el)
+        if (el.isListItem()) heading.addDescendent(el)
         el.addAncestorHeading(heading)
       }
     }

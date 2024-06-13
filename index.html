@@ -42,8 +42,7 @@
         .then(results => document.getElementById("test-results").innerText = results)
     </script>
     <script type="module">
-      import {init, homElements} from "./src/index.ts"
-      console.log(homElements(document.body))
+      import {init} from "./src/index.ts"
       init(document.querySelector("input"), document.getElementsByTagName("h1")[0])
     </script>
     <div>
