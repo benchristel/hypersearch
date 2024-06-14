@@ -67,6 +67,11 @@ export class HomElement {
     }
   }
 
+  inspect(): string {
+    const tag = this.domElement.tagName.toLowerCase();
+    return `${tag} ${this.innerText()}`
+  }
+
   private innerText(): string {
     if (this._innerText == null) {
       this._innerText = this.domElement.innerText
