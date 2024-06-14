@@ -104,12 +104,34 @@ test("a HOM", {
     verifySearchResults(html, query, expected)
   },
 
-  "includes an hr tag"() {
+  "includes an unordered list item"() {
     const html = `
       <h2>Heading</h2>
-      <hr/>`
+      <ul><li>item</li></ul>`
     const query = ""
-    const expected = ["h2 Heading", "hr "]
+    const expected = ["h2 Heading", "li item"]
+
+    verifySearchResults(html, query, expected)
+  },
+
+  "includes an ordered list item"() {
+    const html = `
+      <h2>Heading</h2>
+      <ol><li>item</li></ol>`
+    const query = ""
+    const expected = ["h2 Heading", "li item"]
+
+    verifySearchResults(html, query, expected)
+  },
+
+  "groups nested lists under their parent list item"() {
+    const html = `
+      <h2>Heading</h2>
+      <ol>
+        <li><ol><li>one</li><li>two</li></ol></li>
+      </ol>`
+    const query = ""
+    const expected = ["h2 Heading", "li onetwo"]
 
     verifySearchResults(html, query, expected)
   },
