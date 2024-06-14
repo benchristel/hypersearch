@@ -7,7 +7,7 @@ export function init() {
 
   const hom = homElements(document.body)
   search.addEventListener("input", () => {
-    const bagOfWords = new BagOfPrefixesSearch(search.value)
-    applySearch(bagOfWords, hom)
+    const bagOfPrefixes = new BagOfPrefixesSearch(search.value)
+    applySearch(bagOfPrefixes, hom)
   })
 }
