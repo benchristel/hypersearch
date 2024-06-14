@@ -117,6 +117,29 @@ test("a HOM", {
 
     verifySearchResults(html, query, expected)
   },
+
+  "given a query that matches a section heading, shows supersection headings"() {
+    const html = `
+      <h2>111</h2>
+      <h3>222</h3>
+      <p>aaa</p>`
+    const query = "2"
+    const expected = ["h2 111", "h3 222", "p aaa"]
+
+    verifySearchResults(html, query, expected)
+  },
+
+  "only shows headings that are ancestors of a matching node"() {
+    const html = `
+      <h2>111</h2>
+      <h3>222</h3>
+      <h2>333</h2>
+      <p>aaa</p>`
+    const query = "a"
+    const expected = ["h2 333", "p aaa"]
+
+    verifySearchResults(html, query, expected)
+  },
 })
 
 function verifySearchResults(html: string, query: string, expected: string[]) {
