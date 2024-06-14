@@ -84,6 +84,36 @@ test("a HOM", {
     verifySearchResults(html, query, expected)
   },
 
+  "includes a blockquote"() {
+    const html = `
+      <h2>Heading</h2>
+      <blockquote>quote</blockquote>`
+    const query = ""
+    const expected = ["h2 Heading", "blockquote quote"]
+
+    verifySearchResults(html, query, expected)
+  },
+
+  "includes a pre tag"() {
+    const html = `
+      <h2>Heading</h2>
+      <pre>code</pre>`
+    const query = ""
+    const expected = ["h2 Heading", "pre code"]
+
+    verifySearchResults(html, query, expected)
+  },
+
+  "includes an hr tag"() {
+    const html = `
+      <h2>Heading</h2>
+      <hr/>`
+    const query = ""
+    const expected = ["h2 Heading", "hr "]
+
+    verifySearchResults(html, query, expected)
+  },
+
   "only shows the headings for sections with results"() {
     const html = `
       <h2>111</h2>
