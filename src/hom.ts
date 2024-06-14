@@ -52,10 +52,6 @@ export class HomElement {
     return this._lastSearchMatched
   }
 
-  isListItem(): boolean {
-    return this.domElement.tagName === "LI"
-  }
-
   headingLevel(): 0 | 1 | 2 | 3 | 4 | null {
     switch (this.domElement.tagName) {
       case "H2": return 0;
