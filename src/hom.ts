@@ -32,12 +32,15 @@ export class HomElement {
   }
 
   updateVisibility(search: Search): void {
-    const shouldBeVisible = false
+    this.domElement.style.display =
+      this.shouldBeVisible(search) ? "" : "none"
+  }
+
+  shouldBeVisible(search: Search): boolean {
+    return false
       || this.matches(search)
       || this.ancestorHeadings.some(h => h.matches(search))
       || this.descendents.some(h => h.matches(search));
-    
-    this.domElement.style.display = shouldBeVisible ? "" : "none"
   }
 
   matches(search: Search): boolean {
