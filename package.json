@@ -1,6 +1,6 @@
 {
   "name": "@benchristel/hypersearch",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Adds search and filtering capabilities to simple static webpages",
   "type": "module",
   "main": "dist/hypersearch.js",
@@ -20,6 +20,6 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && mv dist/hypersearch.umd.cjs dist/hypersearch.js",
-    "preversion": "tsc && build"
+    "preversion": "yarn tsc && yarn build"
   }
 }
