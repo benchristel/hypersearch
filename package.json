@@ -20,6 +20,6 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && mv dist/hypersearch.umd.cjs dist/hypersearch.js",
-    "preversion": "yarn tsc && yarn build"
+    "preversion": "yarn tsc && yarn build && git add dist"
   }
 }
