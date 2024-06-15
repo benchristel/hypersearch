@@ -1,9 +1,9 @@
 {
-  "name": "quendingold",
+  "name": "hypersearch",
   "version": "0.0.0",
   "description": "Adds search and filtering capabilities to simple static webpages",
   "main": "dist/index.js",
-  "repository": "git@github.com:benchristel/quendingold.git",
+  "repository": "git@github.com:benchristel/hypersearch.git",
   "author": "Ben Christel <ben.christel@gmail.com>",
   "license": "MIT",
   "private": false,

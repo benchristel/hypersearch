@@ -1,1 +1,1 @@
-export const SEARCHBAR_ATTRIBUTE = "data-quendingold"
+export const SEARCHBAR_ATTRIBUTE = "data-hypersearch"
