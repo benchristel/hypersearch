@@ -6,7 +6,7 @@ Instant search/filtering for static webpages.
 
 Perhaps you've created a static site with a Markdown-to-HTML generator like Hugo, Jekyll, or mdsite.
 
-Perhaps you've got a page with a curated list of links - essentially a public bookmarks folder.
+Perhaps you've got a page with a [curated list of links](https://waywardweb.org/how.html) - essentially a public bookmarks folder.
 
 Perhaps you'd like to set that page as your homepage, so your awesome collection of bookmarks can be your portal to the entire web.
 
@@ -16,7 +16,7 @@ There's just one problem, though: the page isn't conveniently searchable. You're
 
 ## Live Demo
 
-WIP
+[Live Demo](https://ben.waywardweb.org/)
 
 ## How
 
