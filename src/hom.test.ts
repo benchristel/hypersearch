@@ -229,6 +229,17 @@ test("a HOM", {
 
     verifySearchResults(html, query, expected)
   },
+
+  "searches by the combination of item text and heading text"() {
+    const html = `
+      <h2>heading</h2>
+      <p>item</p>
+      <p>not this one</p>`
+    const query = "head it"
+    const expected = ["h2 heading", "p item"]
+
+    verifySearchResults(html, query, expected)
+  }
 })
 
 function verifySearchResults(html: string, query: string, expected: string[]) {

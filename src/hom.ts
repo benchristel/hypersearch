@@ -21,11 +21,16 @@ export function homElements(dom: Element): HomElement[] {
 export class HomElement {
   private ancestorHeadings: HomElement[] = [];
   private descendents: HomElement[] = [];
-  private _innerText: null | string = null;
+  private _inspectString: string;
+  private _searchableText: string;
   private _lastSearch: null | Search = null;
   private _lastSearchMatched: boolean = false;
 
-  constructor(private domElement: HTMLElement) {}
+  constructor(private domElement: HTMLElement) {
+    this._searchableText = domElement.innerText
+    const tag = domElement.tagName.toLowerCase();
+    this._inspectString = `${tag} ${this.innerText()}`
+  }
 
   static make(domElement: Node): HomElement[] {
     if (!(domElement instanceof HTMLElement)) {
@@ -37,6 +42,7 @@ export class HomElement {
 
   addAncestorHeading(heading: HomElement): void {
     this.ancestorHeadings.push(heading)
+    this._searchableText += " " + heading.innerText()
   }
 
   addDescendent(item: HomElement): void {
@@ -51,7 +57,6 @@ export class HomElement {
   shouldBeVisible(search: Search): boolean {
     return false
       || this.matches(search)
-      || this.ancestorHeadings.some(h => h.matches(search))
       || this.descendents.some(h => h.matches(search));
   }
 
@@ -76,16 +81,11 @@ export class HomElement {
   }
 
   inspect(): string {
-    const tag = this.domElement.tagName.toLowerCase();
-    return `${tag} ${this.innerText()}`
+    return this._inspectString
   }
 
-  private innerText(): string {
-    if (this._innerText == null) {
-      this._innerText = this.domElement.innerText
-    }
-    
-    return this._innerText
+  innerText(): string {
+    return this._searchableText
   }
 }
 
