@@ -136,6 +136,16 @@ test("a HOM", {
     verifySearchResults(html, query, expected)
   },
 
+  "excludes block elements before the first heading from filtering"() {
+    const html = `
+      <p>before heading</p>
+      <h2>Heading</h2>`
+    const query = ""
+    const expected = ["h2 Heading"]
+
+    verifySearchResults(html, query, expected)
+  },
+
   "only shows the headings for sections with results"() {
     const html = `
       <h2>111</h2>
