@@ -1,8 +1,11 @@
 import {applySearch, homElements} from "./hom";
+import { onDomContentLoaded } from "./lib/browser";
 import {SEARCHBAR_ATTRIBUTE} from "./magic-constants";
 import {BagOfPrefixesSearch} from "./search/bag-of-prefixes-search";
 
-export function init() {
+onDomContentLoaded(init)
+
+function init() {
   const search: HTMLInputElement | null = document.querySelector(`input[${SEARCHBAR_ATTRIBUTE}]`)
   if (search == null) return;
 
