@@ -1,10 +1,12 @@
 {
   "name": "@benchristel/hypersearch",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Adds search and filtering capabilities to simple static webpages",
   "type": "module",
   "main": "dist/hypersearch.umd.cjs",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "repository": "git@github.com:benchristel/hypersearch.git",
   "author": "Ben Christel <ben.christel@gmail.com>",
   "license": "MIT",
