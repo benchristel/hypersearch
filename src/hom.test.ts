@@ -146,6 +146,21 @@ test("a HOM", {
     verifySearchResults(html, query, expected)
   },
 
+  "only includes elements after an element with data-hypersearch-start if that is present"() {
+    const html = `
+      <h2>before</h2>
+      <p>before</p>
+      <ul><li>before</li></ul>
+      <div data-hypersearch-start></div>
+      <h2>after</h2>
+      <p>after</p>
+      <ul><li>after</li></ul>`
+    const query = ""
+    const expected = ["h2 after", "p after", "li after"]
+
+    verifySearchResults(html, query, expected)
+  },
+
   "only shows the headings for sections with results"() {
     const html = `
       <h2>111</h2>
