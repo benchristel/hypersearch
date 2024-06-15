@@ -4,8 +4,19 @@
 // - the siblings of headings that are not lists (ol, ul)
 // - the li children of ol and ul elements that are siblings of headings.
 
-import {START_ATTRIBUTE} from "./magic-constants";
+import {END_ATTRIBUTE, START_ATTRIBUTE} from "./magic-constants";
 import {Search} from "./search/interface";
+
+export function applySearch(search: Search, homElements: HomElement[]): void {
+  homElements.forEach(el => el.updateVisibility(search))
+}
+
+export function homElements(dom: Element): HomElement[] {
+  let domElements = dropAfterEndElement([...dom.querySelectorAll(getSearchableElementSelector(dom))])
+  const homElements = domElements.flatMap(HomElement.make)
+  associate(homElements)
+  return homElements
+}
 
 export class HomElement {
   private ancestorHeadings: HomElement[] = [];
@@ -78,17 +89,36 @@ export class HomElement {
   }
 }
 
-export function applySearch(search: Search, homElements: HomElement[]): void {
-  homElements.forEach(el => el.updateVisibility(search))
+function getSearchableElementSelector(dom: Element) {
+  const heading = "h2, h3, h4, h5, h6"
+  // these are the non-heading, non-list block-level elements supported by markdown
+  const block = "p, blockquote, pre, hr"
+  const list = "ul, ol"
+  const isStart = `[${START_ATTRIBUTE}]`
+  const isEnd = `[${END_ATTRIBUTE}]`
+
+  if (dom.querySelector(`${isStart}`)) {
+    return `
+      ${isStart},
+      ${isEnd},
+      ${isStart} ~ :is(${block}, ${heading}),
+      ${isStart} ~ :is(${list}) > li
+    `
+  } else {
+    return `
+      ${heading},
+      :is(${heading}) ~ :is(${block}),
+      :is(${heading}) ~ :is(${list}) > li
+    `
+  }
 }
 
-export function homElements(dom: Element): HomElement[] {
-  const homElements = [
-    ...dom.querySelectorAll(
-      getSearchableElementSelector(dom),
-    ),
-  ].flatMap(HomElement.make)
+function dropAfterEndElement(dom: Element[]): Element[] {
+  const endIndex = dom.findIndex(el => el.getAttribute(END_ATTRIBUTE) != null)
+  return dom.slice(0, endIndex !== -1 ? endIndex : dom.length)
+}
 
+function associate(hom: HomElement[]): void {
   const headings: [
     HomElement | null,
     HomElement | null,
@@ -98,7 +128,7 @@ export function homElements(dom: Element): HomElement[] {
   ] = [null, null, null, null, null];
   const levels = headings.length;
   
-  for (const el of homElements) {
+  for (const el of hom) {
     const level = el.headingLevel()
     if (level != null) {
       // update the headings tuple
@@ -120,29 +150,5 @@ export function homElements(dom: Element): HomElement[] {
         el.addAncestorHeading(heading)
       }
     }
-  }
-
-  return homElements
-}
-
-function getSearchableElementSelector(dom: Element) {
-  const heading = "h2, h3, h4, h5, h6"
-  // these are the non-heading, non-list block-level elements supported by markdown
-  const block = "p, blockquote, pre, hr"
-  const list = "ul, ol"
-  const isStart = `[${START_ATTRIBUTE}]`
-
-  if (dom.querySelector(`${isStart}`)) {
-    return `
-      ${isStart},
-      ${isStart} ~ :is(${block}, ${heading}),
-      ${isStart} ~ :is(${list}) > li
-    `
-  } else {
-    return `
-      ${heading},
-      :is(${heading}) ~ :is(${block}),
-      :is(${heading}) ~ :is(${list}) > li
-    `
   }
 }

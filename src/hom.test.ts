@@ -161,6 +161,18 @@ test("a HOM", {
     verifySearchResults(html, query, expected)
   },
 
+  "excludes elements after an element with data-hypersearch-end"() {
+    const html = `
+      <div data-hypersearch-start></div>
+      <p>before</p>
+      <div data-hypersearch-end></div>
+      <p>after</p>`
+    const query = ""
+    const expected = ["p before"]
+
+    verifySearchResults(html, query, expected)
+  },
+
   "only shows the headings for sections with results"() {
     const html = `
       <h2>111</h2>
