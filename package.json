@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Adds search and filtering capabilities to simple static webpages",
   "type": "module",
-  "main": "dist/hypersearch.umd.cjs",
+  "main": "dist/hypersearch.js",
   "files": [
     "dist"
   ],
@@ -19,6 +19,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build && mv dist/hypersearch.umd.cjs dist/hypersearch.js",
+    "preversion": "tsc && build"
   }
 }
