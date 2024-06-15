@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Adds search and filtering capabilities to simple static webpages",
   "type": "module",
-  "main": "dist/hypersearch.js",
+  "main": "dist/hypersearch.umd.cjs",
   "files": ["dist"],
   "repository": "git@github.com:benchristel/hypersearch.git",
   "author": "Ben Christel <ben.christel@gmail.com>",
