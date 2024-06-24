@@ -21,7 +21,7 @@ There's just one problem, though: the page isn't conveniently searchable. You're
 ## How
 
 ```markdown
-<script defer src="https://cdn.jsdelivr.net/npm/@benchristel/hypersearch@0.1.0"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@benchristel/hypersearch@0.2.1"></script>
 <input data-hypersearch type="search" placeholder="Search" />
 
 <div data-hypersearch-start></div>
@@ -50,6 +50,9 @@ You don't need to read this section unless you are working on hypersearch itself
 - **Types** are checked by running `yarn tsc -w`.
 
 ### Releasing
+
+Before you release, remember to manually update the version number referenced
+in this README to the version you are about to release.
 
 ```bash
 # builds the code, commits it, and tags the commit with the new version number
