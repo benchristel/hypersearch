@@ -40,3 +40,21 @@ There's just one problem, though: the page isn't conveniently searchable. You're
 ```
 
 The elements between the `data-hypersearch-start` and `data-hypersearch-end` marker elements will get filtered when you type in the search field.
+
+## Development
+
+You don't need to read this section unless you are working on hypersearch itself.
+
+- Start the **dev server** by running `yarn dev`.
+- **Tests** run in the browser.
+- **Types** are checked by running `yarn tsc -w`.
+
+### Releasing
+
+```bash
+# builds the code, commits it, and tags the commit with the new version number
+yarn version
+
+git push && git push --tags
+npm publish
+```
