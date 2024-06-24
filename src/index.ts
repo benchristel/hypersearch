@@ -1,5 +1,5 @@
 import {applySearch, homElements} from "./hom";
-import { onDomContentLoaded } from "./lib/browser";
+import {onDomContentLoaded} from "./lib/browser";
 import {SEARCHBAR_ATTRIBUTE} from "./magic-constants";
 import {BagOfPrefixesSearch} from "./search/bag-of-prefixes-search";
 
@@ -10,8 +10,12 @@ function init() {
   if (search == null) return;
 
   const hom = homElements(document.body)
-  search.addEventListener("input", () => {
+  const runSearch = () => {
     const bagOfPrefixes = new BagOfPrefixesSearch(search.value)
     applySearch(bagOfPrefixes, hom)
-  })
+  }
+
+  runSearch()
+
+  search.addEventListener("input", runSearch)
 }
