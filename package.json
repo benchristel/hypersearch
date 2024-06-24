@@ -1,6 +1,6 @@
 {
   "name": "@benchristel/hypersearch",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Adds search and filtering capabilities to simple static webpages",
   "type": "module",
   "main": "dist/hypersearch.js",
