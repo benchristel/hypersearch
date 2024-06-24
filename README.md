@@ -4,7 +4,7 @@ Instant search/filtering for static webpages.
 
 ## Why
 
-Perhaps you've created a static site with a Markdown-to-HTML generator like Hugo, Jekyll, or mdsite.
+Perhaps you've created a static site with a Markdown-to-HTML generator like Hugo, Jekyll, or [mdsite](https://benchristel.github.io/mdsite/).
 
 Perhaps you've got a page with a [curated list of links](https://waywardweb.org/how.html) - essentially a public bookmarks folder.
 
@@ -16,7 +16,7 @@ There's just one problem, though: the page isn't conveniently searchable. You're
 
 ## Live Demo
 
-[Live Demo](https://ben.waywardweb.org/)
+[Live Demo](https://benchristel.com/portal.html)
 
 ## How
 
