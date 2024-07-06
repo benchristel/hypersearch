@@ -1,6 +1,6 @@
 # @benchristel/hypersearch
 
-Instant search/filtering for static webpages.
+Instant search/filtering for Markdown documents and static webpages.
 
 ## Why
 
