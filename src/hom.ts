@@ -27,7 +27,7 @@ export class HomElement {
   private _lastSearchMatched: boolean = false;
 
   constructor(private domElement: HTMLElement) {
-    this._searchableText = domElement.innerText
+    this._searchableText = removeSoftHyphens(domElement.innerText)
     const tag = domElement.tagName.toLowerCase();
     this._inspectString = `${tag} ${this.innerText()}`
   }
@@ -111,6 +111,10 @@ function getSearchableElementSelector(dom: Element) {
       :is(${heading}) ~ :is(${list}) > li
     `
   }
+}
+
+function removeSoftHyphens(s: string): string {
+  return s.replace(/\xAD/g, "")
 }
 
 function dropAfterEndElement(dom: Element[]): Element[] {

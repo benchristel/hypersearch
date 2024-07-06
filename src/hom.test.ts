@@ -239,7 +239,23 @@ test("a HOM", {
     const expected = ["h2 heading", "p item"]
 
     verifySearchResults(html, query, expected)
-  }
+  },
+
+  "strips a soft hyphen from HTML when searching"() {
+    const html = `<h2></h2><p>foo&shy;bar</p>`
+    const query = "foobar"
+    const expected = ["h2 ", "p foobar"]
+
+    verifySearchResults(html, query, expected)
+  },
+
+  "strips multiple soft hyphens from HTML when searching"() {
+    const html = `<h2></h2><p>foo&shy;bar&shy;baz</p>`
+    const query = "foobarbaz"
+    const expected = ["h2 ", "p foobarbaz"]
+
+    verifySearchResults(html, query, expected)
+  },
 })
 
 function verifySearchResults(html: string, query: string, expected: string[]) {
