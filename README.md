@@ -21,7 +21,7 @@ There's just one problem, though: the page isn't conveniently searchable. You're
 ## How
 
 ```markdown
-<script defer src="https://cdn.jsdelivr.net/npm/@benchristel/hypersearch@0.2.1"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@benchristel/hypersearch@0.3.0"></script>
 <input data-hypersearch type="search" placeholder="Search" />
 
 <div data-hypersearch-start></div>
