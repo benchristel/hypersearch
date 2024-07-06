@@ -27,9 +27,13 @@ export class HomElement {
   private _lastSearchMatched: boolean = false;
 
   constructor(private domElement: HTMLElement) {
-    this._searchableText = removeSoftHyphens(domElement.innerText)
+    const cleanInnerText = removeSoftHyphens(domElement.innerText)
+    this._searchableText = [
+      cleanInnerText,
+      keywords(domElement),
+    ].filter(Boolean).join(" ")
     const tag = domElement.tagName.toLowerCase();
-    this._inspectString = `${tag} ${this.innerText()}`
+    this._inspectString = `${tag} ${cleanInnerText}`
   }
 
   static make(domElement: Node): HomElement[] {
@@ -42,7 +46,7 @@ export class HomElement {
 
   addAncestorHeading(heading: HomElement): void {
     this.ancestorHeadings.push(heading)
-    this._searchableText += " " + heading.innerText()
+    this._searchableText += " " + heading.searchableText()
   }
 
   addDescendent(item: HomElement): void {
@@ -63,7 +67,7 @@ export class HomElement {
   matches(search: Search): boolean {
     if (search !== this._lastSearch) {
       this._lastSearch = search
-      this._lastSearchMatched = search.matches(this.innerText())
+      this._lastSearchMatched = search.matches(this.searchableText())
     }
     
     return this._lastSearchMatched
@@ -84,7 +88,7 @@ export class HomElement {
     return this._inspectString
   }
 
-  innerText(): string {
+  searchableText(): string {
     return this._searchableText
   }
 }
@@ -111,6 +115,12 @@ function getSearchableElementSelector(dom: Element) {
       :is(${heading}) ~ :is(${list}) > li
     `
   }
+}
+
+function keywords(domElement: Element): string {
+  return [...domElement.querySelectorAll("hs-meta[keywords]")]
+    .map(el => el.getAttribute("keywords"))
+    .join(" ")
 }
 
 function removeSoftHyphens(s: string): string {

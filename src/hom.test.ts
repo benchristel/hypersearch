@@ -256,6 +256,46 @@ test("a HOM", {
 
     verifySearchResults(html, query, expected)
   },
+
+  "finds an element by hs-meta keywords"() {
+    const html = `
+      <h2>Heading</h2>
+      <p>foo<hs-meta keywords="blah"></hs-meta></p>`
+    const query = "blah"
+    const expected = ["h2 Heading", "p foo"]
+
+    verifySearchResults(html, query, expected)
+  },
+
+  "finds an element by hs-meta keywords in the heading"() {
+    const html = `
+      <h2>Heading<hs-meta keywords="blah"></hs-meta></h2>
+      <p>foo</p>`
+    const query = "blah"
+    const expected = ["h2 Heading", "p foo"]
+
+    verifySearchResults(html, query, expected)
+  },
+
+  "combines keywords from multiple hs-meta elements"() {
+    const html = `
+      <h2>Heading<hs-meta keywords="blah"></hs-meta></h2>
+      <p>foo<hs-meta keywords="bar"></hs-meta><hs-meta keywords="baz"></hs-meta></p>`
+    const query = "blah bar baz"
+    const expected = ["h2 Heading", "p foo"]
+
+    verifySearchResults(html, query, expected)
+  },
+
+  "combines keywords from one hs-meta element"() {
+    const html = `
+      <h2>Heading</h2>
+      <p>foo<hs-meta keywords="bar baz"></hs-meta></p>`
+    const query = "bar baz"
+    const expected = ["h2 Heading", "p foo"]
+
+    verifySearchResults(html, query, expected)
+  },
 })
 
 function verifySearchResults(html: string, query: string, expected: string[]) {
