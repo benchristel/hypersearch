@@ -14,9 +14,9 @@ There's just one problem, though: the page isn't conveniently searchable. You're
 
 **hypersearch solves that problem.**
 
-## [Live Demo](https://benchristel.com/portal.html)
+## [Live Demo](https://benchristel.com/portal/)
 
-[Live demo on benchristel.com](https://benchristel.com/portal.html)
+[Live demo on benchristel.com](https://benchristel.com/portal/)
 
 ## How
 
