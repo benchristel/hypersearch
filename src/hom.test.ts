@@ -257,7 +257,7 @@ test("a HOM", {
     verifySearchResults(html, query, expected)
   },
 
-  "finds an element by hs-meta keywords"() {
+  "finds an element by hs-meta keywords (DEPRECATED 0.4.0)"() {
     const html = `
       <h2>Heading</h2>
       <p>foo<hs-meta keywords="blah"></hs-meta></p>`
@@ -267,7 +267,7 @@ test("a HOM", {
     verifySearchResults(html, query, expected)
   },
 
-  "finds an element by hs-meta keywords in the heading"() {
+  "finds an element by hs-meta keywords in the heading (DEPRECATED 0.4.0)"() {
     const html = `
       <h2>Heading<hs-meta keywords="blah"></hs-meta></h2>
       <p>foo</p>`
@@ -277,7 +277,7 @@ test("a HOM", {
     verifySearchResults(html, query, expected)
   },
 
-  "combines keywords from multiple hs-meta elements"() {
+  "combines keywords from multiple hs-meta elements (DEPRECATED 0.4.0)"() {
     const html = `
       <h2>Heading<hs-meta keywords="blah"></hs-meta></h2>
       <p>foo<hs-meta keywords="bar"></hs-meta><hs-meta keywords="baz"></hs-meta></p>`
@@ -287,7 +287,7 @@ test("a HOM", {
     verifySearchResults(html, query, expected)
   },
 
-  "combines keywords from one hs-meta element"() {
+  "combines keywords from one hs-meta element (DEPRECATED 0.4.0)"() {
     const html = `
       <h2>Heading</h2>
       <p>foo<hs-meta keywords="bar baz"></hs-meta></p>`

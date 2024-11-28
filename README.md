@@ -52,13 +52,23 @@ Sometimes, though, searching by user-visible text isn't good enough. You might w
 to customize the search keywords associated with an element, e.g. so users can search
 for synonyms of the visible words.
 
-To add search keywords to an element, add an `<hs-meta>` tag with a `keywords` attribute:
+To add search keywords to an element, you can add an [inert] element and make it invisible with CSS.
+
+[inert]: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert
 
 ```markdown
 
 - [Online Photo Editor](https://example.com/photos)
-  <hs-meta keywords="picture image"></hs-meta>
+  <span inert>picture image</span>
 
+```
+
+```css
+[inert] {
+  position: absolute;
+  height: 0;
+  overflow: hidden;
+}
 ```
 
 ## Development

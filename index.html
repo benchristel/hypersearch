@@ -3,6 +3,13 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <style>
+      [inert] {
+        position: absolute;
+        height: 0;
+        overflow: hidden;
+      }
+    </style>
   </head>
   <body>
     <h1>Hypersearch Test Page</h1>
@@ -12,7 +19,7 @@
       <input type="search" data-hypersearch />
     </form>
     <h2 data-hypersearch-start>Exotherms</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit<hs-meta keywords="latinate placeholders"/>.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<span inert> latinate placeholders</span> And other text.</p>
     <ul>
       <li>The quick, brown fox jumps over a lazy dog.</li>
       <li>DJs flock by when MTV ax quiz prog.</li>
