@@ -1,20 +1,28 @@
 import {Search} from "./interface";
 
 export class BagOfPrefixesSearch implements Search {
-  private regexen: RegExp[];
+  private prefixes: string[]
 
   constructor(query: string) {
-    this.regexen = removeRegexSpecialChars(query.trim().toLowerCase())
-      .split(/\s+/)
-      .map(word => new RegExp("\\b" + word, "i"))
+    this.prefixes = query.toLowerCase().split(/\s+/).filter(Boolean)
   }
 
   matches(s: string): boolean {
+    if (s === "") {
+      return false
+    }
     const downcased = s.toLowerCase()
-    return this.regexen.every(re => downcased.match(re))
+    return this.prefixes.every(prefix =>
+      containsAtWordBoundary(prefix, downcased)
+    )
   }
 }
 
-function removeRegexSpecialChars(s: string) {
-  return s.replace(/[\^$\\.()*+|{}\[\]?]/g, "")
+function containsAtWordBoundary(needle: string, haystack: string): boolean {
+  const foundIndex = haystack.indexOf(needle)
+  return foundIndex === 0 || isWordBreakingChar(haystack[foundIndex - 1])
+}
+
+function isWordBreakingChar(c: string): boolean {
+  return " \n\r\t`~!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?".includes(c)
 }

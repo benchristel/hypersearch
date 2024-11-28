@@ -31,6 +31,7 @@ export class HomElement {
     this._searchableText = [
       cleanInnerText,
       keywords(domElement),
+      linkHrefs(domElement),
     ].filter(Boolean).join(" ")
     const tag = domElement.tagName.toLowerCase();
     this._inspectString = `${tag} ${cleanInnerText}`
@@ -120,6 +121,12 @@ function getSearchableElementSelector(dom: Element) {
 function keywords(domElement: Element): string {
   return [...domElement.querySelectorAll("hs-meta[keywords]")]
     .map(el => el.getAttribute("keywords"))
+    .join(" ")
+}
+
+function linkHrefs(domElement: Element): string {
+  return [...domElement.querySelectorAll("a[href]")]
+    .map(el => el.getAttribute("href"))
     .join(" ")
 }
 

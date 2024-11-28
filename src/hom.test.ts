@@ -257,6 +257,22 @@ test("a HOM", {
     verifySearchResults(html, query, expected)
   },
 
+  "finds an element by link href"() {
+    const html = `<h2></h2><p><a href="foo">bar</a></p>`
+    const query = "foo"
+    const expected = ["h2 ", "p bar"]
+
+    verifySearchResults(html, query, expected)
+  },
+
+  "finds an element by link domain"() {
+    const html = `<h2></h2><p><a href="https://example.com">foo</a></p>`
+    const query = "example.com"
+    const expected = ["h2 ", "p foo"]
+
+    verifySearchResults(html, query, expected)
+  },
+
   "finds an element by hs-meta keywords (DEPRECATED 0.4.0)"() {
     const html = `
       <h2>Heading</h2>
