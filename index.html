@@ -9,6 +9,15 @@
         height: 0;
         overflow: hidden;
       }
+
+      .hypersearch-no-results {
+        margin-block: 2em;
+        display: none;
+      }
+
+      .hypersearch-no-results.hypersearch-no-results-shown {
+        display: block;
+      }
     </style>
   </head>
   <body>
@@ -19,6 +28,7 @@
       <input type="search" data-hypersearch />
     </form>
     <h2 data-hypersearch-start>Exotherms</h2>
+    <div class="hypersearch-no-results">No results.</div>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<span inert> latinate placeholders</span> And other text.</p>
     <ul>
       <li>The quick, brown fox jumps over a lazy dog.</li>

@@ -314,9 +314,222 @@ test("a HOM", {
   },
 })
 
+test("homElements, without data-hypersearch-start,", {
+  "includes an h2"() {
+    const html = `
+      <h2>heading</h2>
+    `
+
+    const expected = [
+      "h2 heading",
+    ]
+
+    verifyHomElements(html, expected)
+  },
+
+  "includes list items after an h2"() {
+    const html = `
+      <h2>heading</h2>
+      <ul>
+        <li>first</li>
+      <ul>
+    `
+
+    const expected = [
+      "h2 heading",
+      "li first",
+    ]
+
+    verifyHomElements(html, expected)
+  },
+
+  "includes list items after an h3"() {
+    const html = `
+      <h3>heading</h3>
+      <ul>
+        <li>first</li>
+      <ul>
+    `
+
+    const expected = [
+      "h3 heading",
+      "li first",
+    ]
+
+    verifyHomElements(html, expected)
+  },
+
+  "doesn't include list items after an h1"() {
+    const html = `
+      <h1>heading</h1>
+      <ul>
+        <li>first</li>
+      <ul>
+    `
+
+    const expected: string[] = []
+
+    verifyHomElements(html, expected)
+  },
+
+  "excludes list items before any heading"() {
+    const html = `
+      <ul>
+        <li>first</li>
+      <ul>
+      <h2>heading</h2>
+    `
+
+    const expected = [
+      "h2 heading",
+    ]
+
+    verifyHomElements(html, expected)
+  },
+
+  "includes both ordered and unordered lists"() {
+    const html = `
+      <h2>heading</h2>
+      <ul>
+        <li>first</li>
+      </ul>
+      <ol>
+        <li>second</li>
+      </ol>
+    `
+
+    const expected = [
+      "h2 heading",
+      "li first",
+      "li second",
+    ]
+
+    verifyHomElements(html, expected)
+  },
+
+  "includes paragraphs"() {
+    const html = `
+      <h2>heading</h2>
+      <p>paragraph</p>
+    `
+
+    const expected = [
+      "h2 heading",
+      "p paragraph"
+    ]
+
+    verifyHomElements(html, expected)
+  },
+
+  "includes headings"() {
+    const html = `
+      <h2>first</h2>
+      <h3>second</h3>
+      <h4>third</h4>
+      <h5>fourth</h5>
+      <h6>fifth</h6>
+    `
+
+    const expected = [
+      "h2 first",
+      "h3 second",
+      "h4 third",
+      "h5 fourth",
+      "h6 fifth",
+    ]
+
+    verifyHomElements(html, expected)
+  },
+
+  "includes blockquotes"() {
+    const html = `
+      <h2>heading</h2>
+      <blockquote>quote</blockquote>
+    `
+
+    const expected = [
+      "h2 heading",
+      "blockquote quote",
+    ]
+
+    verifyHomElements(html, expected)
+  },
+
+  "includes <pre> tags"() {
+    const html = `
+      <h2>heading</h2>
+      <pre>preformatted</pre>
+    `
+
+    const expected = [
+      "h2 heading",
+      "pre preformatted",
+    ]
+
+    verifyHomElements(html, expected)
+  },
+
+  "includes <hr> tags"() {
+    const html = `
+      <h2>heading</h2>
+      <hr>
+    `
+
+    const expected = [
+      "h2 heading",
+      "hr ",
+    ]
+
+    verifyHomElements(html, expected)
+  },
+
+  "excludes p elements with the .hypersearch-no-results class"() {
+    const html = `
+      <h2>heading</h2>
+      <p class="hypersearch-no-results">no results</p>
+    `
+
+    const expected = [
+      "h2 heading",
+    ]
+
+    verifyHomElements(html, expected)
+  },
+
+  "excludes list items with the .hypersearch-no-results class"() {
+    const html = `
+      <h2>heading</h2>
+      <ul>
+        <li class="hypersearch-no-results">no results</li>
+      </ul>
+    `
+
+    const expected = [
+      "h2 heading",
+    ]
+
+    verifyHomElements(html, expected)
+  },
+
+  "excludes headings with the .hypersearch-no-results class"() {
+    const html = `
+      <h2 class="hypersearch-no-results">heading</h2>
+    `
+
+    const expected: string[] = []
+
+    verifyHomElements(html, expected)
+  },
+})
+
 function verifySearchResults(html: string, query: string, expected: string[]) {
   const hom = homElements(dom(html))
   expect(search(hom, query), equals, expected)
+}
+
+function verifyHomElements(html: string, expected: string[]) {
+  const elements = homElements(dom(html)).map(h => h.inspect())
+  expect(elements, equals, expected)
 }
 
 function search(hom: HomElement[], query: string): string[] {

@@ -8,7 +8,19 @@ import {END_ATTRIBUTE, START_ATTRIBUTE} from "./magic-constants";
 import {Search} from "./search/interface";
 
 export function applySearch(search: Search, homElements: HomElement[]): void {
-  homElements.forEach(el => el.updateVisibility(search))
+  let anyVisible = false
+  for (let el of homElements) {
+    if (el.updateVisibility(search)) {
+      anyVisible = true
+    }
+  }
+
+  const noResultsClasses = document.querySelector(".hypersearch-no-results")?.classList
+  if (anyVisible) {
+    noResultsClasses?.remove("hypersearch-no-results-shown")
+  } else {
+    noResultsClasses?.add("hypersearch-no-results-shown")
+  }
 }
 
 export function homElements(dom: Element): HomElement[] {
@@ -54,9 +66,10 @@ export class HomElement {
     this.descendents.push(item)
   }
 
-  updateVisibility(search: Search): void {
-    this.domElement.style.display =
-      this.shouldBeVisible(search) ? "" : "none"
+  updateVisibility(search: Search): boolean {
+    const shouldBeVisible = this.shouldBeVisible(search);
+    this.domElement.style.display = shouldBeVisible ? "" : "none"
+    return shouldBeVisible
   }
 
   shouldBeVisible(search: Search): boolean {
@@ -111,9 +124,9 @@ function getSearchableElementSelector(dom: Element) {
     `
   } else {
     return `
-      ${heading},
-      :is(${heading}) ~ :is(${block}),
-      :is(${heading}) ~ :is(${list}) > li
+      :is(${heading}):not(.hypersearch-no-results),
+      :is(${heading}) ~ :is(${block}):not(.hypersearch-no-results),
+      :is(${heading}) ~ :is(${list}) > li:not(.hypersearch-no-results)
     `
   }
 }
