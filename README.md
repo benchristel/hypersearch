@@ -41,6 +41,28 @@ There's just one problem, though: the page isn't conveniently searchable. You're
 
 The elements between the `data-hypersearch-start` and `data-hypersearch-end` marker elements will get filtered when you type in the search field.
 
+### Empty state
+
+You probably don't want to show a blank screen when there are no results for a search query.
+
+If you create an element with the class `.hypersearch-no-results`, the `.hypersearch-no-results-shown` class will be added to it whenever there are no results. Then you can style the element appropriately:
+
+```css
+.hypersearch-no-results {
+  display: none;
+}
+
+.hypersearch-no-results.hypersearch-no-results-shown {
+  display: block;
+}
+```
+
+```html
+<div class="hypersearch-no-results">
+  No results.
+</div>
+```
+
 ### Keywords
 
 By default, hypersearch shows elements which:
