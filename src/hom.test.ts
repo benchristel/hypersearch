@@ -241,6 +241,22 @@ test("a HOM", {
     verifySearchResults(html, query, expected)
   },
 
+  "includes elements that contain the search term in the middle of a word"() {
+    // This is a regression test for a bug.
+    const html = `
+      <h2>Tools</h2>
+      <h3>Calculators</h3>
+      <p>Electrical calculator</p>`
+    const query = "cal"
+    const expected = [
+      "h2 Tools",
+      "h3 Calculators",
+      "p Electrical calculator"
+    ]
+
+    verifySearchResults(html, query, expected)
+  },
+
   "strips a soft hyphen from HTML when searching"() {
     const html = `<h2></h2><p>foo&shy;bar</p>`
     const query = "foobar"
